@@ -36,7 +36,7 @@ async function addDishtoMenu(name, description, price, ingredients, nutritionalV
 async function singIn(email, password){
     let owner = new Owner(database)
     owner.email = email;
-    owner.password = password
+    owner.password = password;
     
     let result = await owner.login();
 
