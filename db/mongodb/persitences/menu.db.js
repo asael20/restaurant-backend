@@ -10,6 +10,7 @@ class MenuPersistence {
 
     
     async putDish(dish, title, restaurant){
+        console.log(dish, title, restaurant)
         let db = await objMongoConn.open();
         if(objMongoConn.error) return { error: true, type:'CONNECTION DB', reason:objMongoConn.message, data:null }  
         let collection = db.collection(this.collectionName);

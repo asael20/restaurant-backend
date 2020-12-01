@@ -1,1 +1,4 @@
 node_modules/
+uploads/
+public/images/dishes/*
+public/images/restaurants/*

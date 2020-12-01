@@ -6,12 +6,13 @@ class Dish {
     nutritionalValues = {};
     description = ''
     
-    constructor(name, description, price, ingredients, nutritionalValues){
+    constructor(name, description, price, ingredients, nutritionalValues, image=''){
         this.name = name;
         this.price = price;
         this.description = description
         this.ingredients = ingredients;
-        this.nutritionalValues = nutritionalValues
+        this.nutritionalValues = nutritionalValues;
+        this.image = image
     }
 
 }

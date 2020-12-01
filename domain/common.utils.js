@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports.generateToken = function(payload) {
     let token = null;
     try {
-        token = jwt.sign(payload, process.env.SECRET, {expiresIn:`${5/60}h`})
+        token = jwt.sign(payload, process.env.SECRET, {expiresIn:`1h`})
     } catch (error) {
         console.error('ERORO CODING TOKEN ', error)
     }

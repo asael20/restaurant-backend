@@ -17,7 +17,7 @@ class MongoConnection extends ConnectionDB{
             console.log('connected...')
             return database;
         } catch (error) {
-            console.dir('IT WAS AN EEROR TRYING TO CONNECT DB...');
+            console.log('IT WAS AN EEROR TRYING TO CONNECT DB...', error);
             this.error = true;
             this.message = error;
             
@@ -28,14 +28,3 @@ class MongoConnection extends ConnectionDB{
 }
 
 module.exports = MongoConnection;
-
-// let mongconx = new MongoConexion();
-
-// (async function(){
-//     let db = await mongconx.open()
-//     let collection = db.collection('restaurants',)
-//     let data = await collection.findOne({})
-//     console.log(data)
-//     await mongconx.connection.close()
-   
-// })()

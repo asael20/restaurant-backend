@@ -23,9 +23,14 @@ async function createMenu(title, description, restaurant, token) {
     return await owner.createMenu(title, description, restaurant, token);
 }
 
-async function addDishtoMenu(name, description, price, ingredients, nutritionalValues, restaurant, menuTitle, token) {
+async function addDishtoMenu(name, description, price, ingredients, nutritionalValues, restaurant, menuTitle, token, file) {
     let owner = new Owner(database);
-    return await owner.addDish(name, description, price, ingredients, nutritionalValues, restaurant, menuTitle, token)
+    fs.createReadStream(file.path).pipe(fs.createWriteStream(`public/images/dishes/${restaurant}_${name}${path.extname(file.originalname)}`));
+    let urlimage = `${global.URL_IMAGES}/dishes/${restaurant}_${name}${path.extname(file.originalname)}`;
+
+
+    
+    return await owner.addDish(name, description, price, ingredients, nutritionalValues, restaurant, menuTitle, token, urlimage)
 }
 
 async function singIn(email, password){
@@ -38,13 +43,20 @@ async function singIn(email, password){
     return result;
 }
 
+async function getMyRestaurant(id, token) {
+    let owner = new Owner(database);
+
+    return await owner.getMyRestaurants(id, token)
+}
+
 
 
 const ownerPort = {
    signUp,
    singIn,
    createMenu,
-   addDishtoMenu
+   addDishtoMenu,
+   getMyRestaurant
 }
 
 module.exports = ownerPort

@@ -59,6 +59,23 @@ class OwnerPersistence {
         return {ok:true, type:undefined, reason: undefined, data: result}
     }
 
+    async getRestaurantByOwner(id) {
+        let db = await objMongoConn.open();
+        if(objMongoConn.error){
+            return { error: true, type:'CONNECTION DB', reason:objMongoConn.message, data:null }
+        }
+
+        let collection = db.collection('restaurants');
+        let result = await collection.find({owner: id});
+        let restaurants = []
+
+        await result.forEach( restaurant => {
+            restaurants.push(restaurant)
+        })
+
+        return {ok:true, type:undefined, reason: undefined, data: restaurants[0]}
+    }
+
 }
 
 module.exports = OwnerPersistence;

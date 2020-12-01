@@ -1,4 +1,5 @@
 const { owner } = require('../../application/primary-ports/index');
+const fs = require('fs')
 
 class OwnerController {
     constructor() { }
@@ -11,6 +12,9 @@ class OwnerController {
         let restaurantData = {address, user, nit, restaurantName};
 
         let result = await owner.signUp(ownerData, restaurantData, req.file);
+        fs.unlink(req.file.path, ()=>{
+            console.log('image cleaned')
+        })
         res.json(result);
     }
 
@@ -30,9 +34,21 @@ class OwnerController {
     }
 
     async addDishToMenu(req, res) {
-        let  { name, description, price, ingredients, nutritionalValues, restaurant, menuTitle } = req.body;
+        let  { name, description, price, ingredients, restaurant, menuTitle, proteina, fibra, azucar, grasa_saturada, grasa_poliinsaturada, grasa_monoinsaturada } = req.body;
+        let nutritionalValues = {proteina, fibra, azucar, grasa_saturada, grasa_poliinsaturada, grasa_monoinsaturada}
+        
+        console.log(req.body)
+        let result = await owner.addDishtoMenu(name, description, price, ingredients, nutritionalValues, restaurant, menuTitle, req.token, req.file);
+        fs.unlink(req.file.path, ()=>{
+            console.log('image cleaned')
+        })
+        res.json(result)
+    }
 
-        let result = await owner.addDishtoMenu(name, description, price, ingredients, nutritionalValues, restaurant, menuTitle, req.token);
+    async getMyRestaurants(req, res){
+       let {id} = req.params;
+
+       let result = await owner.getMyRestaurant(id, req.token)
         res.json(result)
     }
 
